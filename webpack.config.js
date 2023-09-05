@@ -6,10 +6,10 @@ module.exports = {
   context: path.resolve(__dirname, "./src"),
   mode: "development",
   resolve: {
-    extensions: [".js", ".ts"]
+    extensions: [".js", ".ts", ".tsx"]
   },
   entry: {
-    app: ["./index.ts"],
+    app: ["./index.tsx"],
   },
   output: {
     filename: "[name].[chunkhash].js",
@@ -28,14 +28,22 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.scss$/,
         exclude: /node_modules/,
         use: [
           "style-loader",
-          "css-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                exportLocalsConvention: "camelCase",
+                localIdentName: "[path][name]__[local]___[hash:base64:5]",
+              },
+            },
+          },
           "sass-loader",
         ],
       },
