@@ -5,8 +5,11 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   context: path.resolve(__dirname, "./src"),
   mode: "development",
+  resolve: {
+    extensions: [".js", ".ts"]
+  },
   entry: {
-    app: ["./index.js"],
+    app: ["./index.ts"],
   },
   output: {
     filename: "[name].[chunkhash].js",
@@ -15,7 +18,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.tsx?$/,
         exclude: /node_modules/,
         loader: "babel-loader",
       },
@@ -25,7 +28,6 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        exclude: /node_modules/,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
