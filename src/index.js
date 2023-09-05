@@ -1,6 +1,6 @@
 
 import logo from "./assets/logo_1.png";
-import "./styles.css";
+import "./styles.scss";
 
 const img = document.createElement("img")
 img.src = logo;
